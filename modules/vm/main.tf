@@ -4,6 +4,7 @@ resource "google_compute_instance" "vm" {
   zone         = var.zone
   tags         = var.network_tags
 
+  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key -- using Google-managed encryption, sufficient for this environment
   boot_disk {
     initialize_params {
       image = var.image
@@ -27,7 +28,6 @@ resource "google_compute_instance" "vm" {
     enable_integrity_monitoring = true
   }
 
-  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key -- using Google-managed encryption, sufficient for this environment
   labels = {
     creator     = var.creator
     environment = var.environment
