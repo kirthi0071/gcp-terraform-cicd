@@ -32,11 +32,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install tfsec
+        run: |
+          curl -L https://github.com/aquasecurity/tfsec/releases/download/v1.28.10/tfsec-linux-amd64 -o tfsec
+          chmod +x tfsec
+          sudo mv tfsec /usr/local/bin/tfsec
+
       - name: Run tfsec
-        uses: aquasecurity/tfsec-action@v1.0.3
-        with:
-          working_directory: ${{ env.TF_WORKING_DIR }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: tfsec ${{ env.TF_WORKING_DIR }} --no-color
 
   terraform:
     name: Terraform Plan & Apply
