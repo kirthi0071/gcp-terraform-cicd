@@ -24,13 +24,13 @@ In short: infrastructure changes were slow to validate, inconsistent, and depend
 
 By building this pipeline, every one of those gaps is closed automatically, on every push:
 
-- **Push-triggered automation** — any change to `main` triggers the full pipeline with zero manual steps
-- **Automated code quality checks** — TFLint catches bad Terraform syntax and undeclared variables before anything is planned
-- **Automated security scanning** — tfsec inspects every resource for real security issues (public ingress, missing encryption, exposed instances) and fails the pipeline if something's wrong, forcing a fix before merge
-- **Validated, safe planning** — `terraform plan` runs in CI to confirm the configuration is deployable, without touching real infrastructure
-- **Proof the infrastructure works, not just plans** — Terratest actually deploys the infrastructure, checks it produces the correct outputs, and tears it down again automatically — so a passing pipeline means the infrastructure genuinely functions, not just that the code is syntactically valid
-- **No long-lived credentials anywhere** — Workload Identity Federation lets GitHub Actions authenticate to GCP using short-lived tokens tied to the specific repository, so there's no static key to leak or manage
-- **Repeatable and safe to run often** — because Terratest always destroys what it creates (even on failure), the pipeline can run on every single push without accumulating cost or orphaned resources
+- **Push-triggered automation** - any change to `main` triggers the full pipeline with zero manual steps
+- **Automated code quality checks** - TFLint catches bad Terraform syntax and undeclared variables before anything is planned
+- **Automated security scanning** - tfsec inspects every resource for real security issues (public ingress, missing encryption, exposed instances) and fails the pipeline if something's wrong, forcing a fix before merge
+- **Validated, safe planning** -`terraform plan` runs in CI to confirm the configuration is deployable, without touching real infrastructure
+- **Proof the infrastructure works, not just plans** - Terratest actually deploys the infrastructure, checks it produces the correct outputs, and tears it down again automatically - so a passing pipeline means the infrastructure genuinely functions, not just that the code is syntactically valid
+- **No long-lived credentials anywhere** - Workload Identity Federation lets GitHub Actions authenticate to GCP using short-lived tokens tied to the specific repository, so there's no static key to leak or manage
+- **Repeatable and safe to run often** - because Terratest always destroys what it creates (even on failure), the pipeline can run on every single push without accumulating cost or orphaned resources
 
 # Step 1: Install Terraform on your Mac
 
