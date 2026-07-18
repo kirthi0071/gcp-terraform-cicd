@@ -16,5 +16,5 @@ variable "subnet_cidr" {
 variable "ssh_source_ranges" {
   description = "Allowed source IP ranges for SSH access"
   type        = list(string)
-  default     = ["0.0.0.0/0"] # tighten this to your IP in real use
+  
 }

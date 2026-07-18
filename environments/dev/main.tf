@@ -12,6 +12,7 @@ module "firewall" {
   vpc_name       = var.vpc_name
   vpc_self_link  = module.vpc.vpc_self_link
   subnet_cidr    = var.subnet_cidr
+  ssh_source_ranges = ["103.6.157.201/32"]
 }
 
 module "vm" {

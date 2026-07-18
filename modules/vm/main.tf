@@ -4,6 +4,7 @@ resource "google_compute_instance" "vm" {
   zone         = var.zone
   tags         = var.network_tags
 
+  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key -- using Google-managed encryption, sufficient for this environment
   boot_disk {
     initialize_params {
       image = var.image
@@ -14,13 +15,17 @@ resource "google_compute_instance" "vm" {
 
   network_interface {
     subnetwork = var.subnet_self_link
-
-    # Remove this block for a VM with no public IP (recommended for prod)
-    access_config {}
+    # No access_config block = no public IP
   }
 
   metadata = {
-    enable-oslogin = "TRUE"
+    enable-oslogin          = "TRUE"
+    block-project-ssh-keys  = true
+  }
+
+  shielded_instance_config {
+    enable_vtpm                 = true
+    enable_integrity_monitoring = true
   }
 
   labels = {
