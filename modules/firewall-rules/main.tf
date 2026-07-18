@@ -20,7 +20,7 @@ resource "google_compute_firewall" "allow_http_https" {
     ports    = ["80", "443"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["103.6.157.201/32"]
   target_tags   = ["web"]
 }
 
