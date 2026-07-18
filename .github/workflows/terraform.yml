@@ -41,7 +41,7 @@ jobs:
         run: tfsec ${{ env.TF_WORKING_DIR }} --no-color
 
   terraform:
-    name: Terraform Plan & Apply
+    name: Terraform Plan
     needs: [lint, tfsec]
     runs-on: ubuntu-latest
     permissions:
@@ -66,11 +66,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve tfplan
+        run: terraform plan
 
   terratest:
     name: Terratest
