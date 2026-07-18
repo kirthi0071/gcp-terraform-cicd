@@ -20,7 +20,7 @@ resource "google_compute_instance" "vm" {
 
   metadata = {
     enable-oslogin          = "TRUE"
-    block-project-ssh-keys  = "true"
+    block-project-ssh-keys  = true
   }
 
   shielded_instance_config {
